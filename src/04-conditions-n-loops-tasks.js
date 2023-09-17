@@ -467,5 +467,5 @@ module.exports = {
   toNaryString,
   getCommonDirectoryPath,
   getMatrixProduct,
-  evaluateTicTacToePosition,
+  // evaluateTicTacToePosition,
 };
