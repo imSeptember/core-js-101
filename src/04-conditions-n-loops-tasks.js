@@ -27,8 +27,17 @@
  *  21 => 'Fizz'
  *
  */
-function getFizzBuzz(/* num */) {
-  throw new Error('Not implemented');
+function getFizzBuzz(num) {
+  if (num % 3 === 0 && num % 5 === 0) {
+    return 'FizzBuzz';
+  }
+  if (num % 3 === 0) {
+    return 'Fizz';
+  }
+  if (num % 5 === 0) {
+    return 'Buzz';
+  }
+  return num;
 }
 
 
@@ -43,8 +52,10 @@ function getFizzBuzz(/* num */) {
  *   5  => 120
  *   10 => 3628800
  */
-function getFactorial(/* n */) {
-  throw new Error('Not implemented');
+function getFactorial(n) {
+  if (n === 0 || n === 1) {
+    return 1;
+  } return n * getFactorial(n - 1);
 }
 
 
@@ -60,8 +71,16 @@ function getFactorial(/* n */) {
  *   5,10  =>  45 ( = 5+6+7+8+9+10 )
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
-function getSumBetweenNumbers(/* n1, n2 */) {
-  throw new Error('Not implemented');
+function getSumBetweenNumbers(n1, n2) {
+  let flag = n1;
+  let result = 0;
+
+  while (flag < n2) {
+    result += flag;
+    flag += 1; // Increment flag by adding 1
+  }
+
+  return result + n2;
 }
 
 
@@ -80,8 +99,14 @@ function getSumBetweenNumbers(/* n1, n2 */) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isTriangle(a, b, c) {
+  if (a <= 0 || b <= 0 || c <= 0) {
+    return false; // Sides must be positive.
+  }
+
+  if (a + b > c && a + c > b && b + c > a) {
+    return true; // Triangle can be built.
+  } return false; // Triangle cannot be built.
 }
 
 
@@ -394,8 +419,34 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  for (let i = 0; i < 3; i += i) {
+    if (
+      position[i][0] === position[i][1]
+      && position[i][1] === position[i][2]
+    ) {
+      if (position[i][0] === 'X' || position[i][0] === 'O') {
+        return position[i][0];
+      }
+    }
+    if (
+      position[0][i] === position[1][i]
+      && position[1][i] === position[2][i]
+    ) {
+      if (position[0][i] === 'X' || position[0][i] === 'O') {
+        return position[0][i];
+      }
+    }
+  }
+  if (
+    (position[0][0] === position[1][1] && position[1][1] === position[2][2])
+    || (position[0][2] === position[1][1] && position[1][1] === position[2][0])
+  ) {
+    if (position[1][1] === 'X' || position[1][1] === 'O') {
+      return position[1][1];
+    }
+  }
+  return undefined;
 }
 
 
