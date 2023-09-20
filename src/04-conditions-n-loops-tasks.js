@@ -142,8 +142,19 @@ function isTriangle(a, b, c) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
+function doRectanglesOverlap(rect1, rect2) {
+  const rect1Right = rect1.left + rect1.width;
+  const rect1Bottom = rect1.top + rect1.height;
+
+  const rect2Right = rect2.left + rect2.width;
+  const rect2Bottom = rect2.top + rect2.height;
+
+  // Check for overlap along both axes
+  const xOverlap = rect1.left < rect2Right && rect1Right > rect2.left;
+  const yOverlap = rect1.top < rect2Bottom && rect1Bottom > rect2.top;
+
+  // If both axes have overlap, rectangles overlap
+  return xOverlap && yOverlap;
 }
 
 
@@ -173,8 +184,13 @@ function doRectanglesOverlap(/* rect1, rect2 */) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
+function isInsideCircle(circle, point) {
+  const distance = Math.sqrt(
+    (point.x - circle.center.x) ** 2 + (point.y - circle.center.y) ** 2,
+  );
+
+  // Check if the distance is less than the radius of the circle
+  return distance < circle.radius;
 }
 
 
@@ -189,8 +205,23 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  for (let i = 0; i < str.length; i += 1) {
+    let isUnique = true; // Flag to check if the character is unique
+
+    for (let j = 0; j < str.length; j += 1) {
+      if (i !== j && str[i] === str[j]) {
+        isUnique = false;
+        break; // If a duplicate is found, no need to continue checking
+      }
+    }
+
+    if (isUnique) {
+      return str[i]; // Found a unique character, return it
+    }
+  }
+
+  return null;
 }
 
 
@@ -216,8 +247,23 @@ function findFirstSingleChar(/* str */) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  let left;
+  if (isStartIncluded === true) {
+    left = '[';
+  } else {
+    left = '(';
+  }
+  let right;
+  if (isEndIncluded === true) {
+    right = ']';
+  } else {
+    right = ')';
+  }
+  if (a < b) {
+    return `${left}${a}, ${b}${right}`;
+  }
+  return `${left}${b}, ${a}${right}`;
 }
 
 
@@ -233,8 +279,8 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  return str.split('').reverse().join('');
 }
 
 
@@ -250,8 +296,8 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  return num.toString().split('').reverse().join('');
 }
 
 
@@ -275,8 +321,16 @@ function reverseInteger(/* num */) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  let result = 0;
+  const array = ccn.toString().split('');
+  for (let i = 0; i < array.length; i += 1) {
+    result += +array[i];
+  }
+  if (result > 9) {
+    return result;
+  }
+  return isCreditCardNumber(result);
 }
 
 /**
@@ -293,8 +347,16 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  let result = 0;
+  const array = num.toString().split('');
+  for (let i = 0; i < array.length; i += 1) {
+    result += +array[i];
+  }
+  if (result > 9) {
+    return getDigitalRoot(result);
+  }
+  return result;
 }
 
 
